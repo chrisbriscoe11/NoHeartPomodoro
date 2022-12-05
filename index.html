@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+    body {
+        font-family: 'Kdam Thmor Pro', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+        width: 100wh;
+    }
+
+    .top{
+        color:aqua;
+        padding: 50px;
+
+
+ 
+    }
+
+    #timer {
+        font-size: 155px;
+        font-weight: bolder;
+        color: rgb(55, 55, 55);
+    }
+    #timerEditor{
+        display: none;
+
+    }
+    #timerEditor input{
+        border: 1px;
+        padding: 10px;
+        margin-right: 20px;
+        border-radius: 4px;
+        width: 400px;
+    }
+    </style>
+</head>
+
+<body>
+   
+    <div>
+        <button class = "top" onclick="pomodoroTimer()">Pomodoro</button>
+        <button class = "top" onclick="shortBreakTimer()">Short Break</button>
+        <button class = "top" onclick="LongBreakTimer()">Long Break</button> 
+    </div>
+
+    <button onclick="shortBreakTimer()">poo</button>
+
+    
+
+
+    <div id="timer">25:00</div>
+    <div id="timerEditor">
+        <input placeholder="Type the minutes" />
+    </div>
+
+    <button onclick="showEditTimer()">Edit</button>
+
+
+    <script>
+        function showEditTimer(){
+            document.getElementById("timer").style.display = "none";
+
+            document.getElementById("timerEditor").style.display = "block";
+        }
+
+
+        
+        let timerStartMinutes = 25;
+        let time = timerStartMinutes*60;
+        
+
+        function pomodoroTimer(){
+            let pomodoroTimer = 25;
+            timerStartMinutes = pomodoroTimer;
+            time = pomodoroTimer*60;
+            setInterval(timer, 1000);
+            
+        }
+
+        function shortBreakTimer(){
+            let shortBreakTime = 5;
+            timerStartMinutes = shortBreakTime;
+            time = shortBreakTime*60;
+            setInterval(timer, 1000);
+            
+        }
+
+        function LongBreakTimer(){
+            let longBreakTime = 30;
+            timerStartMinutes = longBreakTime;
+            time = longBreakTime*60;
+            setInterval(timer, 1000);
+            
+        }
+
+        
+
+        function timer(){
+
+        
+            let minutes = Math.floor(time/60);
+            let seconds = time % 60;
+
+            let timerDOMElement = document.getElementById('timer');
+
+            timerDOMElement.innerHTML = `${minutes <10? '0'+minutes:minutes}:${seconds < 10? '0'+seconds:seconds}`;
+
+
+            time--;
+        }
+
+
+
+
+    </script>
+</body>
+</html>
