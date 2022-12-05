@@ -24,11 +24,13 @@
  
     }
 
-    #timer {
+    #timer{
         font-size: 155px;
         font-weight: bolder;
         color: rgb(55, 55, 55);
     }
+
+ 
     #timerEditor{
         display: none;
 
@@ -43,9 +45,9 @@
     </style>
 </head>
 
-<body>
+<body onload="stop()">
    
-    <div>
+    <div id="topButtons">
         <button class = "top" onclick="pomodoroTimer()">Pomodoro</button>
         <button class = "top" onclick="shortBreakTimer()">Short Break</button>
         <button class = "top" onclick="LongBreakTimer()">Long Break</button> 
@@ -55,13 +57,17 @@
     
 
 
-    <div id="timer">25:00</div>
+        <div id="timer">25:00</div>
+        <div id="pComplete">1</div>
+        
+  
+   
     <div id="timerEditor">
         <input placeholder="Type the minutes" />
     </div>
     <div> 
-        <button onclick="start()">Start</button>
-        <button onclick="stop()">Stop</button>
+        <button id ="startButton" onclick="start()">Start</button>
+        <button id="stopButton" onclick="stop()">Stop</button>
         <button onclick="showEditTimer()">Edit</button>
 
     </div>
@@ -70,8 +76,13 @@
 
     <script>
         function showEditTimer(){
+            stop();
             document.getElementById("timer").style.display = "none";
-
+            document.getElementById("stopButton").style.display = "none";
+            document.getElementById("startButton").style.display = "none";
+            document.getElementById("topButtons").style.display = "none";
+            document.getElementById("pComplete").style.display = "none";
+            document.getElementById("timerEditor").style.display = "block";
             document.getElementById("timerEditor").style.display = "block";
         }
 
@@ -83,10 +94,15 @@
         let interval;
 
         function start(){
+            stop();
+            document.getElementById("stopButton").style.display = "block";
+            document.getElementById("startButton").style.display = "none";
             interval = setInterval(timer, 1000);
         }
 
         function stop(){
+            document.getElementById("startButton").style.display = "block";
+            document.getElementById("stopButton").style.display = "none";
             clearInterval(interval);
         }
         
