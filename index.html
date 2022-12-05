@@ -19,10 +19,14 @@
     .top{
         color:aqua;
         padding: 50px;
-
-
  
     }
+
+    #bottomButtons{
+        padding: 50px;
+    }
+
+
 
     #timer{
         font-size: 155px;
@@ -57,24 +61,49 @@
     
 
 
-        <div id="timer">25:00</div>
-        <div id="pComplete">1</div>
+    <div id="timer">25:00</div>
+    <div id="pComplete">0</div>
         
   
    
     <div id="timerEditor">
-        <input placeholder="Type the minutes" />
+        <input id="timerInput" placeholder="Type the minutes" />
+
+        <button id="updateButton" onclick="updateTimer()">Update</button>
     </div>
-    <div> 
+
+    <div id="bottomButtons"> 
         <button id ="startButton" onclick="start()">Start</button>
         <button id="stopButton" onclick="stop()">Stop</button>
-        <button onclick="showEditTimer()">Edit</button>
-
+        <button id="editButton" onclick="showEditTimer()">Edit</button>
     </div>
     
 
 
     <script>
+
+        function updateTimer(){
+            document.getElementById("timer").style.display = "block";
+            document.getElementById("stopButton").style.display = "block";
+            document.getElementById("startButton").style.display = "none";
+            document.getElementById("topButtons").style.display = "block";
+            document.getElementById("pComplete").style.display = "block";
+            document.getElementById("timerEditor").style.display = "none";
+            document.getElementById("editButton").style.display = "block";
+
+            let input = document.getElementById("timerInput");
+            let newMinutes = parseInt(input.value);
+            timerStartMinutes = newMinutes;
+            time = timerStartMinutes * 60;
+
+            start();
+        }
+
+
+
+
+
+
         function showEditTimer(){
             stop();
             document.getElementById("timer").style.display = "none";
@@ -83,7 +112,7 @@
             document.getElementById("topButtons").style.display = "none";
             document.getElementById("pComplete").style.display = "none";
             document.getElementById("timerEditor").style.display = "block";
-            document.getElementById("timerEditor").style.display = "block";
+            document.getElementById("editButton").style.display = "none";
         }
 
 
@@ -98,6 +127,7 @@
             document.getElementById("stopButton").style.display = "block";
             document.getElementById("startButton").style.display = "none";
             interval = setInterval(timer, 1000);
+            
         }
 
         function stop(){
@@ -134,6 +164,11 @@
             
         }
 
+        function playSound () {
+            let ding = new Audio('alarm.mp3');
+            ding.play();
+        }
+
         
 
         function timer(){
@@ -145,6 +180,12 @@
             let timerDOMElement = document.getElementById('timer');
 
             timerDOMElement.innerHTML = `${minutes <10? '0'+minutes:minutes}:${seconds < 10? '0'+seconds:seconds}`;
+
+            if((minutes == 0) && (seconds==0)){
+                stop();
+                pComplete++
+                playSound();
+            }
 
 
             time--;
