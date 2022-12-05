@@ -75,29 +75,42 @@
         
         let timerStartMinutes = 25;
         let time = timerStartMinutes*60;
+
+        let interval;
+
+        function start(){
+            interval = setInterval(timer, 1000);
+        }
+
+        function stop(){
+            clearInterval(interval);
+        }
         
 
         function pomodoroTimer(){
+            stop();
             let pomodoroTimer = 25;
             timerStartMinutes = pomodoroTimer;
             time = pomodoroTimer*60;
-            setInterval(timer, 1000);
+            start();
             
         }
 
         function shortBreakTimer(){
+            stop();
             let shortBreakTime = 5;
             timerStartMinutes = shortBreakTime;
             time = shortBreakTime*60;
-            setInterval(timer, 1000);
+            start();
             
         }
 
         function LongBreakTimer(){
+            stop();
             let longBreakTime = 30;
             timerStartMinutes = longBreakTime;
             time = longBreakTime*60;
-            setInterval(timer, 1000);
+            start();
             
         }
 
@@ -116,6 +129,8 @@
 
             time--;
         }
+
+
 
 
 
